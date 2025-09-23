@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Agenda{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+
+    <nav class="bg-blue-600 text-white p-4 shadow">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="{% url 'lista_contactos' %}" class="font-bold text-xl">Mi Agenda</a>
+            <div>
+                <form class="inline-flex" method="get" action="{% url 'lista_contactos' %}">
+                    <input type="text" name="q" placeholder="Buscar..." class="px-2 py-1 rounded-l">
+                    <button type="submit" class="bg-white text-blue-600 px-3 py-1 rounded-r">Buscar</button>
+                </form>
+                <a href="{% url 'agregar_contacto' %}" class="ml-3 bg-white text-blue-600 px-3 py-1 rounded hover:bg-gray-100">+ Nuevo</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto mt-6">
+        {% block content %}{% endblock %}
+    </div>
+
+</body>
+</html>

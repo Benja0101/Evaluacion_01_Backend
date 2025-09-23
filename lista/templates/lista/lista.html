@@ -1,0 +1,46 @@
+{% extends 'lista/base.html' %}
+{% block title %}Contactos{% endblock %}
+
+{% block content %}
+<h1 class="text-2xl font-bold mb-4">Contactos</h1>
+
+{% if contactos %}
+<ul class="space-y-2">
+    {% for c in contactos %}
+    <li class="bg-white shadow p-4 flex justify-between items-center rounded">
+        <div>
+            <p class="font-semibold">{{ c.nombre }}</p>
+            <p class="text-gray-600 text-sm">{{ c.telefono }} • {{ c.correo }}</p>
+        </div>
+        <div class="space-x-2">
+            <a href="{% url 'detalle_contacto' c.pk %}" class="text-blue-600 hover:underline">Ver</a>
+            <a href="{% url 'editar_contacto' c.pk %}" class="text-yellow-500 hover:underline">Editar</a>
+            <button onclick="confirmarEliminar('{{ c.pk }}')" class="text-red-600 hover:underline">Eliminar</button>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No hay contactos. <a href="{% url 'agregar_contacto' %}" class="text-blue-600 hover:underline">Agrega uno</a>.</p>
+{% endif %}
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+function confirmarEliminar(pk){
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: "¡No podrás revertir esto!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#e3342f',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if(result.isConfirmed){
+            window.location.href = '/eliminar/' + pk + '/';
+        }
+    })
+}
+</script>
+{% endblock %}
