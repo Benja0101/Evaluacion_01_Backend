@@ -1,27 +1,30 @@
 {% extends 'lista/base.html' %}
 {% block title %}Contactos{% endblock %}
 
+
 {% block content %}
-<h1 class="text-2xl font-bold mb-4">Contactos</h1>
+<h1 class="text-3xl font-extrabold admin-title mb-8 text-center">Contactos</h1>
 
 {% if contactos %}
-<ul class="space-y-2">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
     {% for c in contactos %}
-    <li class="bg-white shadow p-4 flex justify-between items-center rounded">
-        <div>
-            <p class="font-semibold">{{ c.nombre }}</p>
-            <p class="text-gray-600 text-sm">{{ c.telefono }} • {{ c.correo }}</p>
+    <div class="admin-card p-6 flex flex-col gap-2">
+        <div class="flex-1">
+            <p class="font-semibold text-lg text-gray-800">{{ c.nombre }}</p>
+            <p class="text-gray-500 text-sm mt-1">{{ c.telefono }}<br>{{ c.correo }}</p>
         </div>
-        <div class="space-x-2">
-            <a href="{% url 'detalle_contacto' c.pk %}" class="text-blue-600 hover:underline">Ver</a>
-            <a href="{% url 'editar_contacto' c.pk %}" class="text-yellow-500 hover:underline">Editar</a>
-            <button onclick="confirmarEliminar('{{ c.pk }}')" class="text-red-600 hover:underline">Eliminar</button>
+        <div class="flex gap-2 mt-4">
+            <a href="{% url 'detalle_contacto' c.pk %}" class="admin-btn bg-blue-700 hover:bg-blue-900 text-white py-1 px-4">Ver</a>
+            <a href="{% url 'editar_contacto' c.pk %}" class="admin-btn bg-yellow-500 hover:bg-yellow-600 text-white py-1 px-4">Editar</a>
+            <button onclick="confirmarEliminar('{{ c.pk }}')" class="admin-btn bg-red-600 hover:bg-red-800 text-white py-1 px-4">Eliminar</button>
         </div>
-    </li>
+    </div>
     {% endfor %}
-</ul>
+</div>
 {% else %}
-<p>No hay contactos. <a href="{% url 'agregar_contacto' %}" class="text-blue-600 hover:underline">Agrega uno</a>.</p>
+<div class="admin-card p-6 text-center text-gray-600">
+    No hay contactos. <a href="{% url 'agregar_contacto' %}" class="admin-link">Agrega uno</a>.
+</div>
 {% endif %}
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

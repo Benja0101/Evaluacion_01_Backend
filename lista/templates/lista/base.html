@@ -4,24 +4,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Agenda{% endblock %}</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <style>
+            body {
+                font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+                background: #f1f5f9;
+            }
+            .admin-shadow {
+                box-shadow: 0 4px 24px 0 rgba(30,41,59,0.08), 0 1.5px 4px 0 rgba(30,41,59,0.04);
+            }
+            .admin-card {
+                background: #fff;
+                border-radius: 1rem;
+                border: 1.5px solid #e5e7eb;
+                box-shadow: 0 2px 8px 0 rgba(30,41,59,0.06);
+            }
+            .admin-title {
+                color: #1e293b;
+                font-weight: 700;
+                letter-spacing: 0.02em;
+            }
+            .admin-btn {
+                background: #1e293b;
+                color: #fff;
+                font-weight: 600;
+                border-radius: 0.5rem;
+                padding: 0.5rem 1.5rem;
+                transition: background 0.2s;
+            }
+            .admin-btn:hover {
+                background: #334155;
+            }
+            .admin-link {
+                color: #68696b;
+                font-weight: 500;
+            }
+            .admin-link:hover {
+                text-decoration: underline;
+            }
+        </style>
 </head>
 <body class="bg-gray-100 min-h-screen">
 
-    <nav class="bg-blue-600 text-white p-4 shadow">
+    <nav class="bg-blue-900 text-white p-4 admin-shadow">
         <div class="container mx-auto flex justify-between items-center">
-            <a href="{% url 'lista_contactos' %}" class="font-bold text-xl">Mi Agenda</a>
-            <div>
-                <form class="inline-flex" method="get" action="{% url 'lista_contactos' %}">
-                    <input type="text" name="q" placeholder="Buscar..." class="px-2 py-1 rounded-l">
-                    <button type="submit" class="bg-white text-blue-600 px-3 py-1 rounded-r">Buscar</button>
+            <a href="{% url 'lista_contactos' %}" class="font-bold text-xl tracking-wide">Panel de Contactos</a>
+            <div class="flex items-center gap-2">
+                <form class="flex" method="get" action="{% url 'lista_contactos' %}">
+                    <input type="text" name="q" placeholder="Buscar..." class="rounded-l-md px-4 py-2 border-none focus:outline-none focus:ring-0 text-gray-800 bg-white w-48" style="border-top-right-radius:0;border-bottom-right-radius:0;">
+                    <button type="submit" class="rounded-r-md px-4 py-2 font-semibold bg-[#23408e] text-white border-none hover:bg-[#19306b] transition" style="border-top-left-radius:0;border-bottom-left-radius:0;">Buscar</button>
                 </form>
-                <a href="{% url 'agregar_contacto' %}" class="ml-3 bg-white text-blue-600 px-3 py-1 rounded hover:bg-gray-100">+ Nuevo</a>
+                <a href="{% url 'agregar_contacto' %}" class="ml-3 admin-btn">+ Agregar</a>
             </div>
         </div>
     </nav>
 
-    <div class="container mx-auto mt-6">
+    <div class="container mx-auto mt-8">
         {% block content %}{% endblock %}
     </div>
 

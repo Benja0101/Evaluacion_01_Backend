@@ -1,13 +1,20 @@
 {% extends 'lista/base.html' %}
-{% block title %}Detalle de Contacto{% endblock %}
+{% block title %}Detalle de Contacto 📞{% endblock %}
 
 {% block content %}
-<h1 class="text-2xl font-bold mb-4">Detalle de Contacto</h1>
-<div class="bg-white shadow p-4 rounded">
-    <p><strong>Nombre:</strong> {{ contacto.nombre }}</p>
-    <p><strong>Teléfono:</strong> {{ contacto.telefono }}</p>
-    <p><strong>Correo:</strong> {{ contacto.correo }}</p>
-    <p><strong>Dirección:</strong> {{ contacto.direccion }}</p>
+<div class="flex justify-center items-center min-h-[60vh]">
+    <div class="admin-card w-full max-w-lg p-8">
+        <h1 class="text-2xl font-bold admin-title mb-6 text-center">Detalle de Contacto</h1>
+        <div class="mb-4">
+            <p class="mb-2"><span class="font-semibold text-gray-700">Nombre:</span> {{ contacto.nombre }}</p>
+            <p class="mb-2"><span class="font-semibold text-gray-700">Teléfono:</span> {{ contacto.telefono }}</p>
+            <p class="mb-2"><span class="font-semibold text-gray-700">Correo:</span> {{ contacto.correo }}</p>
+            <p class="mb-2"><span class="font-semibold text-gray-700">Dirección:</span> {{ contacto.direccion }}</p>
+        </div>
+        <div class="flex justify-end gap-2 mt-6">
+            <a href="{% url 'lista_contactos' %}" class="admin-btn">Volver a la lista</a>
+            <a href="{% url 'editar_contacto' contacto.pk %}" class="admin-btn bg-yellow-500 hover:bg-yellow-600 text-white">Editar</a>
+        </div>
+    </div>
 </div>
-<a href="{% url 'lista_contactos' %}" class="mt-4 inline-block text-blue-600 hover:underline">Volver a la lista</a>
 {% endblock %}
