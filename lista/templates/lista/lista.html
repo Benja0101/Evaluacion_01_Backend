@@ -1,32 +1,67 @@
 {% extends 'lista/base.html' %}
 {% block title %}Contactos{% endblock %}
 
+{% comment %} Tailwind CSS solo para esta vista {% endcomment %}
+<script src="https://cdn.tailwindcss.com"></script>
 
 {% block content %}
 <h1 class="text-3xl font-extrabold admin-title mb-8 text-center">Contactos</h1>
 
 {% if contactos %}
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<div class="accordion">
     {% for c in contactos %}
-    <div class="admin-card p-6 flex flex-col gap-2">
-        <div class="flex-1">
-            <p class="font-semibold text-lg text-gray-800">{{ c.nombre }}</p>
-            <p class="text-gray-500 text-sm mt-1">{{ c.telefono }}<br>{{ c.correo }}</p>
-        </div>
-        <div class="flex gap-2 mt-4">
-            <a href="{% url 'detalle_contacto' c.pk %}" class="admin-btn bg-blue-700 hover:bg-blue-900 text-white py-1 px-4">Ver</a>
-            <a href="{% url 'editar_contacto' c.pk %}" class="admin-btn bg-yellow-500 hover:bg-yellow-600 text-white py-1 px-4">Editar</a>
-            <button onclick="confirmarEliminar('{{ c.pk }}')" class="admin-btn bg-red-600 hover:bg-red-800 text-white py-1 px-4">Eliminar</button>
+    <div class="accordion-item border rounded mb-2" id="contact-{{ c.pk }}">
+        <button type="button" class="accordion-toggle inline-flex items-center gap-x-4 w-full text-start py-3 px-4 font-semibold"
+            aria-controls="contact-{{ c.pk }}-collapse"
+            aria-expanded="false"
+            aria-labelledby="contact-{{ c.pk }}-heading"
+            onclick="toggleAccordion('{{ c.pk }}')">
+            <span class="icon-[tabler--plus] size-4.5 block shrink-0" id="icon-plus-{{ c.pk }}">+</span>
+            <span class="icon-[tabler--minus] size-4.5 hidden shrink-0" id="icon-minus-{{ c.pk }}">−</span>
+            <span id="contact-{{ c.pk }}-heading">{{ c.nombre }}</span>
+        </button>
+        <div id="contact-{{ c.pk }}-collapse" class="accordion-content hidden w-full overflow-hidden transition-[height] duration-300" aria-labelledby="contact-{{ c.pk }}-heading" role="region">
+            <div class="px-5 pb-4">
+                <p><strong>Teléfono:</strong> {{ c.telefono }}</p>
+                <p><strong>Correo:</strong> {{ c.correo }}</p>
+                <p><strong>Dirección:</strong> {{ c.direccion }}</p>
+                  <div class="mt-2 flex gap-2">
+                     <a href="{% url 'detalle_contacto' c.pk %}"
+                         class="inline-flex items-center px-4 py-2 rounded-lg bg-blue-600 text-white font-semibold shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 transition">Ver</a>
+                     <a href="{% url 'editar_contacto' c.pk %}"
+                         class="inline-flex items-center px-4 py-2 rounded-lg bg-yellow-400 text-gray-900 font-semibold shadow-sm hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-300 transition">Editar</a>
+                     <button onclick="confirmarEliminar('{{ c.pk }}')"
+                         class="inline-flex items-center px-4 py-2 rounded-lg bg-red-600 text-white font-semibold shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 transition">Eliminar</button>
+                  </div>
+            </div>
         </div>
     </div>
     {% endfor %}
 </div>
 {% else %}
 <div class="admin-card p-6 text-center text-gray-600">
-    No hay contactos. <a href="{% url 'agregar_contacto' %}" class="admin-link">Agrega uno</a>.
+        No hay contactos. <a href="{% url 'agregar_contacto' %}" class="admin-link">Agrega uno</a>.
 </div>
 {% endif %}
 
+<!-- se añade el script para el acordeon-->
+<script>
+function toggleAccordion(pk) {
+    const content = document.getElementById(`contact-${pk}-collapse`);
+    const plus = document.getElementById(`icon-plus-${pk}`);
+    const minus = document.getElementById(`icon-minus-${pk}`);
+    if (content.classList.contains('hidden')) {
+        content.classList.remove('hidden');
+        plus.classList.add('hidden');
+        minus.classList.remove('hidden');
+    } else {
+        content.classList.add('hidden');
+        plus.classList.remove('hidden');
+        minus.classList.add('hidden');
+    }
+}
+</script>
+<!-- se carga la libreria de sweetalert2 para las alertas todas wapas -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 function confirmarEliminar(pk){

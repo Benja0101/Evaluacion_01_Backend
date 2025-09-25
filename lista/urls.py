@@ -13,3 +13,4 @@ urlpatterns = [
     path('eliminar/<int:pk>/', views.eliminar_contacto, name='eliminar_contacto'),
 
 ]
+#este archivo contiene las URLs de la aplicación de contactos
