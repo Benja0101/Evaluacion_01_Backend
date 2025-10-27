@@ -1,0 +1,1 @@
+web: gunicorn contactos.wsgi:application
