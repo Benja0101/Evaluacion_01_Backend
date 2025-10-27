@@ -16,6 +16,7 @@ def editar_contacto(request, pk):
     return render(request, 'lista/formulario.html', {'form': form, 'contacto': contacto})
 # View para eliminar un contacto
 def eliminar_contacto(request, pk):
+    # Obtener el contacto a eliminar
     contacto = get_object_or_404(Contacto, pk=pk)
     contacto.delete()
     return redirect('lista_contactos')
@@ -23,6 +24,7 @@ def eliminar_contacto(request, pk):
 
 # View para ver el detalle de un contacto
 def detalle_contacto(request, pk):
+    # Obtener el contacto por su clave primaria (pk)
     contacto = get_object_or_404(Contacto, pk=pk)
     return render(request, 'lista/detalle.html', {'contacto': contacto})
 
@@ -51,6 +53,7 @@ def agregar_contacto(request):
             return redirect('lista_contactos')
     else:
         form = ContactoForm()
+        # Renderizar el formulario vacío
     return render(request, 'lista/agregar.html', {'form': form})
         
     
