@@ -23,7 +23,7 @@ var/
 # Django
 *.log
 *.pot
-*.pyc
+*.pyc  
 db.sqlite3
 media/
 staticfiles/
