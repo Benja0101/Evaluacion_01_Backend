@@ -53,7 +53,8 @@ def agregar_contacto(request):
         form  = ContactoForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Contacto creado correctamente.')
+            # Mensaje con tag específico para creación (se mostrará destacado)
+            messages.success(request, 'Contacto creado correctamente.', extra_tags='created')
             return redirect('lista_contactos')
     else:
         form = ContactoForm()
