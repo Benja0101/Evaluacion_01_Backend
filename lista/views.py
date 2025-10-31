@@ -1,6 +1,7 @@
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Q
+from django.contrib import messages
 from .models import Contacto
 from .forms import ContactoForm
 # Create your views here.
@@ -10,6 +11,7 @@ def editar_contacto(request, pk):
         form = ContactoForm(request.POST, instance=contacto)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Contacto actualizado correctamente.')
             return redirect('lista_contactos')
     else:
         form = ContactoForm(instance=contacto)
@@ -19,6 +21,7 @@ def eliminar_contacto(request, pk):
     # Obtener el contacto a eliminar
     contacto = get_object_or_404(Contacto, pk=pk)
     contacto.delete()
+    messages.success(request, 'Contacto eliminado correctamente.')
     return redirect('lista_contactos')
 
 
@@ -50,6 +53,7 @@ def agregar_contacto(request):
         form  = ContactoForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Contacto creado correctamente.')
             return redirect('lista_contactos')
     else:
         form = ContactoForm()
