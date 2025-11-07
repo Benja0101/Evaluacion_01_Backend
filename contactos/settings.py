@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'contactos',
     'lista',
+    'rest_framework',
 
 ]
 
@@ -75,17 +76,22 @@ WSGI_APPLICATION = 'contactos.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+#DATABASES = {
+    #'default': {
+        #'ENGINE': 'django.db.backends.postgresql',
+        #'NAME': os.getenv('NAME'),
+        #'USER': os.getenv('USER'),
+        #'PASSWORD': os.getenv('PASSWORD'),
+        #'HOST': os.getenv('HOST'),
+        #'PORT': os.getenv('DB_PORT', '6543'),
+    #}
+#}
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('NAME'),
-        'USER': os.getenv('USER'),
-        'PASSWORD': os.getenv('PASSWORD'),
-        'HOST': os.getenv('HOST'),
-        'PORT': os.getenv('DB_PORT', '6543'),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -130,3 +136,9 @@ if not DEBUG:
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny'
+    ],
+}
