@@ -8,14 +8,18 @@ from rest_framework import routers
 router = routers.DefaultRouter()
 router.register(r"users", views.UserViewSet)
 router.register(r"groups", views.GroupViewSet)
+router.register(r"contactos", views.ContactoViewSet)
 # URL patterns para la aplicación de contactos
 urlpatterns = [
     
-    path("", include(router.urls)),
+    path("api", include(router.urls)),
+    #incluye todos los router definidos anteriormente
     path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
+    # URL para la lista de contactos
 
     path('', views.lista_contactos, name='lista_contactos'),
     path('agregar/', views.agregar_contacto, name='agregar_contacto'),
+    # URL para crear un nuevo contacto
 
     # URL para el detalle de contacto
     path('detalle/<int:pk>/', views.detalle_contacto, name='detalle_contacto'),

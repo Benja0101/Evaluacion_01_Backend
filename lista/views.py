@@ -8,8 +8,17 @@ from .forms import ContactoForm
 from django.contrib.auth.models import Group, User
 from rest_framework import permissions, viewsets
 
-from .serializers import GroupSerializer, UserSerializer
+from .serializers import GroupSerializer, UserSerializer, ContactoSerializer
 
+class ContactoViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows contactos to be viewed or edited.
+    """
+
+    queryset = Contacto.objects.all().order_by("nombre")
+    serializer_class = ContactoSerializer
+    permission_classes = [permissions.IsAuthenticated]
+#api endpoint para usuarios
 
 class UserViewSet(viewsets.ModelViewSet):
     """
@@ -19,6 +28,7 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all().order_by("-date_joined")
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAuthenticated]
+# api endpoint para grupos
 
 
 class GroupViewSet(viewsets.ModelViewSet):
@@ -31,7 +41,14 @@ class GroupViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
 
-# Create your views here.
+
+
+
+
+
+
+
+#Function-based views para la aplicación de contactos
 def editar_contacto(request, pk):
     contacto = get_object_or_404(Contacto, pk=pk)
     if request.method == 'POST':
@@ -43,6 +60,7 @@ def editar_contacto(request, pk):
     else:
         form = ContactoForm(instance=contacto)
     return render(request, 'lista/formulario.html', {'form': form, 'contacto': contacto})
+#se edita el contacto existente utilizando un formulario prellenado con los datos actuales del contacto. luego de guardar los cambios, se redirige a la lista de contactos con un mensaje de éxito.
 # View para eliminar un contacto
 def eliminar_contacto(request, pk):
     # Obtener el contacto a eliminar
@@ -51,16 +69,11 @@ def eliminar_contacto(request, pk):
     messages.success(request, 'Contacto eliminado correctamente.')
     return redirect('lista_contactos')
 
-
 # View para ver el detalle de un contacto
 def detalle_contacto(request, pk):
     # Obtener el contacto por su clave primaria (pk)
     contacto = get_object_or_404(Contacto, pk=pk)
     return render(request, 'lista/detalle.html', {'contacto': contacto})
-
-
-
-
 
 # View para listar contactos con funcionalidad de búsqueda
 def lista_contactos(request):
@@ -90,4 +103,5 @@ def agregar_contacto(request):
         
     
 
-# Create your views here.
+
+

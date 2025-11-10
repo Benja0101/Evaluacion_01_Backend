@@ -3,11 +3,6 @@ from django.core.validators import RegexValidator, EmailValidator
 from django.core.exceptions import ValidationError
 
 def validar_telefono_chileno(valor):
-    """
-    Valida que el número de teléfono tenga el formato: +569XXXXXXXX
-    Donde X son dígitos y el largo total es 12 caracteres.
-    Solo permite '+' al inicio y números en el resto.
-    """
     # Verificar que empiece con +569
     if not valor.startswith('+569'):
         raise ValidationError(
