@@ -25,6 +25,11 @@ ALLOWED_HOSTS = [
     "localhost"
 ]
 
+
+
+CORS_ALLOW_ALL_ORIGINS = True # Permitir todas las solicitudes CORS
+
+
 RENDER_EXTERNAL_HOSTNAME = os.getenv('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
@@ -40,6 +45,7 @@ INSTALLED_APPS = [
     'contactos',
     'lista',
     'rest_framework',
+    'corsheaders',
 
 ]
 
@@ -52,6 +58,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'contactos.urls'
@@ -87,12 +95,19 @@ WSGI_APPLICATION = 'contactos.wsgi.application'
         #'PORT': os.getenv('DB_PORT', '6543'),
     #}
 #}
+
+
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': 'db.sqlite3',
     }
 }
+
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators

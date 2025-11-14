@@ -18,7 +18,7 @@ class ContactoViewSet(viewsets.ModelViewSet):
 
     queryset = Contacto.objects.all().order_by("nombre")
     serializer_class = ContactoSerializer
-    #permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 #api endpoint para usuarios
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -28,7 +28,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
     queryset = User.objects.all().order_by("-date_joined")
     serializer_class = UserSerializer
-    #permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 # api endpoint para grupos
 
 
@@ -39,8 +39,7 @@ class GroupViewSet(viewsets.ModelViewSet):
 
     queryset = Group.objects.all().order_by("name")
     serializer_class = GroupSerializer
-    #permission_classes = [permissions.IsAuthenticated]
-
+    permission_classes = [permissions.IsAuthenticated]
 
 
 
