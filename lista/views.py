@@ -65,6 +65,12 @@ def eliminar_contacto(request, pk):
     messages.success(request, 'Contacto eliminado correctamente.')
     return redirect('lista_contactos')
 
+
+
+
+
+
+
 # View para ver el detalle de un contacto
 def detalle_contacto(request, pk):
     # Obtener el contacto por su clave primaria (pk)
